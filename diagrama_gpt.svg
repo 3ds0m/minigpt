@@ -1,0 +1,148 @@
+<svg width="800" height="1200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .titulo { font-family: Arial, sans-serif; font-size: 18px; font-weight: bold; fill: #2c3e50; }
+      .subtitulo { font-family: Arial, sans-serif; font-size: 14px; font-weight: bold; fill: #34495e; }
+      .texto { font-family: Arial, sans-serif; font-size: 12px; fill: #2c3e50; }
+      .texto-pequeno { font-family: Arial, sans-serif; font-size: 10px; fill: #7f8c8d; }
+      .caja-entrada { fill: #e8f5e8; stroke: #27ae60; stroke-width: 2; }
+      .caja-embedding { fill: #fff3cd; stroke: #f39c12; stroke-width: 2; }
+      .caja-atencion { fill: #e3f2fd; stroke: #3498db; stroke-width: 2; }
+      .caja-feedforward { fill: #f3e5f5; stroke: #9b59b6; stroke-width: 2; }
+      .caja-salida { fill: #ffebee; stroke: #e74c3c; stroke-width: 2; }
+      .flecha { stroke: #2c3e50; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+      .conexion-residual { stroke: #e67e22; stroke-width: 2; fill: none; stroke-dasharray: 5,5; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#2c3e50" />
+    </marker>
+  </defs>
+  
+  <!-- Título principal -->
+  <text x="400" y="30" text-anchor="middle" class="titulo">Arquitectura GPT - Flujo de Procesamiento</text>
+  
+  <!-- 1. ENTRADA DE TEXTO -->
+  <rect x="50" y="60" width="700" height="60" class="caja-entrada" rx="10"/>
+  <text x="400" y="80" text-anchor="middle" class="subtitulo">1. ENTRADA DE TEXTO</text>
+  <text x="400" y="100" text-anchor="middle" class="texto">"Hola mundo" → [H, o, l, a, , m, u, n, d, o]</text>
+  
+  <!-- Flecha hacia embeddings -->
+  <line x1="400" y1="120" x2="400" y2="150" class="flecha"/>
+  
+  <!-- 2. EMBEDDINGS -->
+  <rect x="50" y="150" width="340" height="80" class="caja-embedding" rx="10"/>
+  <text x="220" y="170" text-anchor="middle" class="subtitulo">2A. Token Embeddings</text>
+  <text x="220" y="190" text-anchor="middle" class="texto">Cada carácter → Vector 384D</text>
+  <text x="220" y="210" text-anchor="middle" class="texto-pequeno">[H] → [0.1, -0.3, 0.8, ...]</text>
+  
+  <rect x="410" y="150" width="340" height="80" class="caja-embedding" rx="10"/>
+  <text x="580" y="170" text-anchor="middle" class="subtitulo">2B. Position Embeddings</text>
+  <text x="580" y="190" text-anchor="middle" class="texto">Posición → Vector 384D</text>
+  <text x="580" y="210" text-anchor="middle" class="texto-pequeno">Pos[0] → [0.2, 0.1, -0.4, ...]</text>
+  
+  <!-- Suma de embeddings -->
+  <line x1="220" y1="230" x2="350" y2="280" class="flecha"/>
+  <line x1="580" y1="230" x2="450" y2="280" class="flecha"/>
+  <circle cx="400" cy="280" r="15" fill="#f39c12" stroke="#e67e22" stroke-width="2"/>
+  <text x="400" y="285" text-anchor="middle" class="texto" fill="white">+</text>
+  
+  <!-- Resultado embeddings -->
+  <rect x="250" y="310" width="300" height="40" class="caja-embedding" rx="5"/>
+  <text x="400" y="335" text-anchor="middle" class="texto">Embeddings Combinados (B, T, 384)</text>
+  
+  <!-- Flecha hacia bloques transformer -->
+  <line x1="400" y1="350" x2="400" y2="380" class="flecha"/>
+  
+  <!-- 3. BLOQUES TRANSFORMER (repetir 6 veces) -->
+  <rect x="50" y="380" width="700" height="300" class="caja-atencion" rx="10" fill="#f8f9fa" stroke="#6c757d"/>
+  <text x="400" y="400" text-anchor="middle" class="subtitulo">3. BLOQUES TRANSFORMER (x6 capas)</text>
+  
+  <!-- Bloque individual -->
+  <rect x="100" y="420" width="600" height="240" class="caja-atencion" rx="8"/>
+  
+  <!-- Layer Norm 1 -->
+  <rect x="120" y="440" width="560" height="30" fill="#e9ecef" stroke="#6c757d" rx="5"/>
+  <text x="400" y="460" text-anchor="middle" class="texto">Layer Normalization 1</text>
+  
+  <!-- Multi-Head Attention -->
+  <rect x="120" y="480" width="560" height="60" class="caja-atencion" rx="5"/>
+  <text x="400" y="500" text-anchor="middle" class="subtitulo">Multi-Head Self-Attention</text>
+  <text x="200" y="520" text-anchor="middle" class="texto-pequeno">Query</text>
+  <text x="400" y="520" text-anchor="middle" class="texto-pequeno">Key</text>
+  <text x="600" y="520" text-anchor="middle" class="texto-pequeno">Value</text>
+  <text x="400" y="535" text-anchor="middle" class="texto-pequeno">Atención = softmax(QK^T/√d)V</text>
+  
+  <!-- Conexión residual 1 -->
+  <path d="M 80 455 Q 60 455 60 510 Q 60 565 80 565" class="conexion-residual"/>
+  <text x="40" y="510" class="texto-pequeno" fill="#e67e22">Residual</text>
+  
+  <!-- Suma 1 -->
+  <circle cx="720" cy="510" r="12" fill="#e67e22" stroke="#d35400" stroke-width="2"/>
+  <text x="720" y="515" text-anchor="middle" class="texto" fill="white">+</text>
+  
+  <!-- Layer Norm 2 -->
+  <rect x="120" y="550" width="560" height="30" fill="#e9ecef" stroke="#6c757d" rx="5"/>
+  <text x="400" y="570" text-anchor="middle" class="texto">Layer Normalization 2</text>
+  
+  <!-- Feed Forward -->
+  <rect x="120" y="590" width="560" height="50" class="caja-feedforward" rx="5"/>
+  <text x="400" y="610" text-anchor="middle" class="subtitulo">Feed Forward Network</text>
+  <text x="400" y="630" text-anchor="middle" class="texto-pequeno">Linear → ReLU → Linear (384 → 1536 → 384)</text>
+  
+  <!-- Conexión residual 2 -->
+  <path d="M 80 565 Q 40 565 40 615 Q 40 665 80 665" class="conexion-residual"/>
+  
+  <!-- Suma 2 -->
+  <circle cx="720" cy="615" r="12" fill="#e67e22" stroke="#d35400" stroke-width="2"/>
+  <text x="720" y="620" text-anchor="middle" class="texto" fill="white">+</text>
+  
+  <!-- Flecha hacia siguiente bloque/salida -->
+  <line x1="400" y1="680" x2="400" y2="710" class="flecha"/>
+  
+  <!-- 4. LAYER NORM FINAL -->
+  <rect x="250" y="710" width="300" height="40" fill="#e9ecef" stroke="#6c757d" rx="5"/>
+  <text x="400" y="735" text-anchor="middle" class="texto">Layer Normalization Final</text>
+  
+  <!-- Flecha hacia cabeza de salida -->
+  <line x1="400" y1="750" x2="400" y2="780" class="flecha"/>
+  
+  <!-- 5. CABEZA DE SALIDA -->
+  <rect x="200" y="780" width="400" height="60" class="caja-salida" rx="10"/>
+  <text x="400" y="800" text-anchor="middle" class="subtitulo">5. CABEZA DE LENGUAJE</text>
+  <text x="400" y="820" text-anchor="middle" class="texto">Linear: 384 → Tamaño_Vocabulario (65)</text>
+  <text x="400" y="835" text-anchor="middle" class="texto-pequeno">Logits para cada carácter posible</text>
+  
+  <!-- Flecha hacia softmax -->
+  <line x1="400" y1="840" x2="400" y2="870" class="flecha"/>
+  
+  <!-- 6. SOFTMAX Y MUESTREO -->
+  <rect x="150" y="870" width="500" height="80" class="caja-salida" rx="10"/>
+  <text x="400" y="890" text-anchor="middle" class="subtitulo">6. SOFTMAX Y MUESTREO</text>
+  <text x="400" y="910" text-anchor="middle" class="texto">Logits → Probabilidades → Muestreo</text>
+  <text x="400" y="930" text-anchor="middle" class="texto-pequeno">P(siguiente_carácter) = softmax(logits)</text>
+  <text x="400" y="945" text-anchor="middle" class="texto-pequeno">Seleccionar carácter según probabilidades</text>
+  
+  <!-- Flecha hacia salida final -->
+  <line x1="400" y1="950" x2="400" y2="980" class="flecha"/>
+  
+  <!-- 7. SALIDA -->
+  <rect x="200" y="980" width="400" height="60" class="caja-entrada" rx="10"/>
+  <text x="400" y="1000" text-anchor="middle" class="subtitulo">7. CARÁCTER GENERADO</text>
+  <text x="400" y="1020" text-anchor="middle" class="texto">Siguiente carácter predicho: "!"</text>
+  <text x="400" y="1035" text-anchor="middle" class="texto-pequeno">"Hola mundo" → "Hola mundo!"</text>
+  
+  <!-- Información adicional -->
+  <rect x="50" y="1060" width="700" height="120" fill="#f8f9fa" stroke="#dee2e6" rx="10"/>
+  <text x="400" y="1080" text-anchor="middle" class="subtitulo">Información Clave del Modelo</text>
+  <text x="70" y="1100" class="texto">• Parámetros: ~10M</text>
+  <text x="70" y="1115" class="texto">• Capas: 6 bloques transformer</text>
+  <text x="70" y="1130" class="texto">• Cabezas de atención: 6</text>
+  <text x="70" y="1145" class="texto">• Dimensión embedding: 384</text>
+  <text x="70" y="1160" class="texto">• Contexto máximo: 256 caracteres</text>
+  
+  <text x="420" y="1100" class="texto">• Vocabulario: 65 caracteres únicos</text>
+  <text x="420" y="1115" class="texto">• Dropout: 20% para regularización</text>
+  <text x="420" y="1130" class="texto">• Optimizador: AdamW</text>
+  <text x="420" y="1145" class="texto">• Tasa aprendizaje: 3e-4</text>
+  <text x="420" y="1160" class="texto">• Dataset: Obras de Shakespeare</text>
+</svg>
