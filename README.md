@@ -1,4 +1,4 @@
-# MiniGPT en Español 🤖🇪🇸
+# MiniGPT en Español
 
 Este repositorio contiene la implementación desde cero de un modelo **GPT (Generative Pre-trained Transformer)** simplificado, diseñado y optimizado para la generación de texto a nivel de caracteres. Es un proyecto con fines educativos que ilustra la arquitectura de auto-atención (self-attention) y bloques de Transformers modernos bajo el framework PyTorch.
 
@@ -6,7 +6,7 @@ El modelo está configurado para entrenarse en GPU (mediante CUDA) o CPU, y perm
 
 ---
 
-## 📊 Arquitectura del Modelo
+## Arquitectura del Modelo
 
 La implementación sigue la estructura clásica del decodificador de Transformers (como el propuesto en *Attention Is All You Need*), compuesto por:
 
@@ -27,7 +27,7 @@ La implementación sigue la estructura clásica del decodificador de Transformer
 
 ---
 
-## 📁 Estructura de Archivos
+## Estructura de Archivos
 
 *   `gpt_espanol.py`: Script principal de definición del modelo, bucle de entrenamiento, guardado de checkpoints y generación.
 *   `bigrama_espanol.py`: Modelo simplificado basado únicamente en frecuencias de bigramas (usado como baseline).
@@ -38,7 +38,7 @@ La implementación sigue la estructura clásica del decodificador de Transformer
 
 ---
 
-## 🚀 Cómo Ejecutar el Proyecto
+## Cómo Ejecutar el Proyecto
 
 ### Requisitos Previos
 
@@ -64,6 +64,6 @@ Una vez finalizado el entrenamiento, el modelo guardará su estado de pesos en `
 
 ---
 
-## 🎓 Créditos
+## Créditos
 
 Proyecto desarrollado por **Edson Gonzales**. Inspirado en los principios arquitectónicos de los modelos GPT de OpenAI y enfocado en la enseñanza simplificada del procesamiento de lenguaje natural (NLP).
